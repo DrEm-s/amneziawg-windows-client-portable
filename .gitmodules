@@ -1,0 +1,3 @@
+[submodule "portable-deps/amneziawg-windows"]
+	path = portable-deps/amneziawg-windows
+	url = https://github.com/DrEm-s/amneziawg-windows-portable.git
