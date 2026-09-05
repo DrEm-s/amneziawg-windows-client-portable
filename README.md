@@ -1,47 +1,89 @@
-# [AmneziaWG](https://amnezia.org/) for Windows
+# AmneziaWG Windows Portable
 
-This is a fully-featured AmneziaWG client for Windows that uses [Wintun](https://www.wintun.net/). It is the only official and recommended way of using AmneziaWG on Windows.
+Unofficial portable build of **AmneziaWG for Windows**.
 
-## Download &amp; Install
+Based on the official [`amnezia-vpn/amneziawg-windows-client`](https://github.com/amnezia-vpn/amneziawg-windows-client).
 
-If you've come here looking to simply run WireGuard for Windows, [the main download page has links](https://www.wireguard.com/install/). There you will find two things:
+## Download
 
-- [The WireGuard Installer](https://download.wireguard.com/windows-client/wireguard-installer.exe) &ndash; This selects the most recent version for your architecture, downloads it, checks signatures and hashes, and installs it.
-- [Standalone MSIs](https://download.wireguard.com/windows-client/) &ndash; These are for system admins who wish to deploy the MSIs directly. For most end users, the ordinary installer takes care of downloading these automatically.
+Latest portable release:
 
-## Documentation
+- [Windows x64 (amd64)](https://github.com/DrEm-s/amneziawg-windows-client-portable/releases/latest/download/amneziawg-windows-portable-amd64.zip)
+- [Windows x86](https://github.com/DrEm-s/amneziawg-windows-client-portable/releases/latest/download/amneziawg-windows-portable-x86.zip)
+- [Windows ARM64](https://github.com/DrEm-s/amneziawg-windows-client-portable/releases/latest/download/amneziawg-windows-portable-arm64.zip)
+- [SHA-256 checksums](https://github.com/DrEm-s/amneziawg-windows-client-portable/releases/latest/download/SHA256SUMS.txt)
 
-In addition to this [`README.md`](README.md), the following documents are also available:
+## Portable mode
 
-- [`adminregistry.md`](docs/adminregistry.md) &ndash; A list of registry keys settable by the system administrator for changing the behavior of the application.
-- [`attacksurface.md`](docs/attacksurface.md) &ndash; A discussion of the various components from a security perspective, so that future auditors of this code have a head start in assessing its security design.
-- [`buildrun.md`](docs/buildrun.md) &ndash; Instructions on building, localizing, running, and developing for this repository.
-- [`enterprise.md`](docs/enterprise.md) &ndash; A summary of various features and tips for making the application usable in enterprise settings.
-- [`netquirk.md`](docs/netquirk.md) &ndash; A description of various networking quirks and "kill-switch" semantics.
-- [`userregistry.md`](docs/userregistry.md) &ndash; A list of registry keys settable by the user for changing the behavior of the application.
+No installer is required. Extract the archive to a writable directory and run `amneziawg.exe`.
+
+Persistent application data is stored next to the executable:
+
+```text
+AmneziaWG-Portable\
+├── amneziawg.exe
+├── awg.exe
+├── wintun.dll
+└── Data\
+    ├── Configurations\
+    │   └── <tunnel>.conf
+    └── log.bin
+```
+
+### Security warning
+
+**Tunnel configuration files are stored as unencrypted `.conf` files.**
+
+They contain private keys and must be protected like passwords. Do not keep the portable directory on an untrusted/shared computer or storage device.
+
+The portable build deliberately does not use Windows DPAPI because DPAPI binds encrypted configurations to a particular Windows account/machine and prevents the directory from being moved between systems.
+
+## Differences from upstream
+
+| Official client | Portable build |
+| --- | --- |
+| `%ProgramFiles%\AmneziaWG\Data` | `Data\` next to `amneziawg.exe` |
+| Saved configs use DPAPI | Saved configs are plain `.conf` |
+| `.conf` migration to DPAPI is enabled | DPAPI migration is disabled |
+| Installer-oriented distribution | Ready-to-extract ZIP archives |
+
+Windows administrator privileges can still be required for installing/running the AmneziaWG manager and tunnel services. Portable mode does not bypass Windows security requirements.
+
+## Source layout
+
+This repository contains the Windows client. The modified AmneziaWG Windows library is pinned as a Git submodule:
+
+- client: [`DrEm-s/amneziawg-windows-client-portable`](https://github.com/DrEm-s/amneziawg-windows-client-portable)
+- portable library: [`DrEm-s/amneziawg-windows-portable`](https://github.com/DrEm-s/amneziawg-windows-portable)
+
+Clone recursively:
+
+```powershell
+git clone --recursive https://github.com/DrEm-s/amneziawg-windows-client-portable.git
+cd amneziawg-windows-client-portable
+.\build.bat
+```
+
+## Versioning
+
+Portable releases follow the upstream client version:
+
+```text
+v3.1.1-portable.1
+v3.1.1-portable.2
+v3.1.2-portable.1
+```
+
+The final number is the revision of the portable patch for that upstream version.
+
+## Upstream
+
+- [AmneziaWG Windows client](https://github.com/amnezia-vpn/amneziawg-windows-client)
+- [AmneziaWG Windows library](https://github.com/amnezia-vpn/amneziawg-windows)
+- [Amnezia project](https://github.com/amnezia-vpn)
+
+This repository is an **unofficial community build** and is not an official AmneziaVPN release.
 
 ## License
 
-This repository is MIT-licensed.
-
-```text
-Copyright (C) 2018-2022 WireGuard LLC. All Rights Reserved.
-
-Permission is hereby granted, free of charge, to any person obtaining a
-copy of this software and associated documentation files (the "Software"),
-to deal in the Software without restriction, including without limitation
-the rights to use, copy, modify, merge, publish, distribute, sublicense,
-and/or sell copies of the Software, and to permit persons to whom the
-Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-DEALINGS IN THE SOFTWARE.
-```
+The upstream project is MIT-licensed. Original copyright and license notices are retained.
