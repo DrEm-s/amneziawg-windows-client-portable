@@ -1,0 +1,17 @@
+AmneziaWG Windows Portable
+
+This is an unofficial portable build.
+
+Persistent data is stored in the Data directory next to amneziawg.exe.
+
+SECURITY WARNING:
+Tunnel configuration files are stored unencrypted as plain .conf files.
+They contain private keys. Protect this directory as you would protect passwords.
+
+Administrator privileges can still be required for AmneziaWG Windows services.
+
+Project:
+https://github.com/DrEm-s/amneziawg-windows-client-portable
+
+Upstream:
+https://github.com/amnezia-vpn/amneziawg-windows-client
