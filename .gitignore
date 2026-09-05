@@ -7,6 +7,12 @@
 /amd64
 /arm
 /arm64
+/dist
+
+# Portable runtime data
+/Data
+*.conf
+*.conf.dpapi
 
 # Misc
 /locales/*/out.gotext.json
