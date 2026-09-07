@@ -69,7 +69,7 @@ func NewManageTunnelsWindow() (*ManageTunnelsWindow, error) {
 	if icon, err := loadLogoIcon(32); err == nil {
 		mtw.SetIcon(icon)
 	}
-	mtw.SetTitle("AmneziaWG")
+	mtw.SetTitle("AmneziaWG (portable)")
 	mtw.SetFont(font)
 	mtw.SetSize(walk.Size{675, 525})
 	mtw.SetMinMaxSize(walk.Size{500, 400}, walk.Size{0, 0})

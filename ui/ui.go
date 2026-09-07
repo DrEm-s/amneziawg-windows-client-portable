@@ -79,7 +79,7 @@ func RunUI() {
 					tray.UpdateFound()
 				}
 			case manager.UpdateStateUpdatesDisabledUnofficialBuild:
-				mtw.SetTitle(l18n.Sprintf("%s (unsigned build, no updates)", mtw.Title()))
+				// The portable title already distinguishes this unsigned build.
 			}
 		})
 	}
@@ -104,7 +104,7 @@ func RunUI() {
 	if shouldQuitManagerWhenExiting {
 		_, err := manager.IPCClientQuit(true)
 		if err != nil {
-                        showErrorCustom(nil, l18n.Sprintf("Error Exiting AmneziaWG"), l18n.Sprintf("Unable to exit service due to: %v. You may want to stop AmneziaWG from the service manager.", err))
+			showErrorCustom(nil, l18n.Sprintf("Error Exiting AmneziaWG"), l18n.Sprintf("Unable to exit service due to: %v. You may want to stop AmneziaWG from the service manager.", err))
 		}
 	}
 }

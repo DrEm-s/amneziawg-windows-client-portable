@@ -4,7 +4,7 @@
 
 This portable build intentionally stores tunnel configurations as unencrypted `.conf` files so the directory can be moved between Windows installations.
 
-A tunnel configuration contains private key material. Anyone who can read a configuration file may be able to use those credentials.
+A tunnel configuration contains private key material. Anyone who can read a configuration file may be able to use those credentials. The portable build deliberately grants the Windows `Everyone` group `Modify` access so files created by the SYSTEM service remain editable in File Explorer.
 
 Recommendations:
 

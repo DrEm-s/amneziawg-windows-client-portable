@@ -34,7 +34,15 @@ AmneziaWG-Portable\
 
 **Tunnel configuration files are stored as unencrypted `.conf` files.**
 
-They contain private keys and must be protected like passwords. Do not keep the portable directory on an untrusted/shared computer or storage device.
+They contain private keys and must be protected like passwords. The portable
+build grants the Windows `Everyone` group `Modify` access to `Data`,
+`Configurations`, and saved `.conf` files so configurations created by the
+SYSTEM service remain editable in File Explorer. Do not keep the portable
+directory on an untrusted/shared computer or storage device.
+
+Plaintext `.conf.dpapi` files created by older portable builds are validated and
+renamed to `.conf` automatically. Actual DPAPI-encrypted or otherwise invalid
+files are left untouched.
 
 The portable build deliberately does not use Windows DPAPI because DPAPI binds encrypted configurations to a particular Windows account/machine and prevents the directory from being moved between systems.
 
@@ -44,7 +52,8 @@ The portable build deliberately does not use Windows DPAPI because DPAPI binds e
 | --- | --- |
 | `%ProgramFiles%\AmneziaWG\Data` | `Data\` next to `amneziawg.exe` |
 | Saved configs use DPAPI | Saved configs are plain `.conf` |
-| `.conf` migration to DPAPI is enabled | DPAPI migration is disabled |
+| `.conf` migration to DPAPI is enabled | Legacy plaintext `.conf.dpapi` files are renamed to `.conf` |
+| Config ACL is restricted | Every Windows user receives `Modify` access |
 | Installer-oriented distribution | Ready-to-extract ZIP archives |
 
 Windows administrator privileges can still be required for installing/running the AmneziaWG manager and tunnel services. Portable mode does not bypass Windows security requirements.

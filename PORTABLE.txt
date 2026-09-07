@@ -6,7 +6,11 @@ Persistent data is stored in the Data directory next to amneziawg.exe.
 
 SECURITY WARNING:
 Tunnel configuration files are stored unencrypted as plain .conf files.
-They contain private keys. Protect this directory as you would protect passwords.
+They contain private keys and grant Modify access to every Windows user.
+Protect this directory as you would protect passwords.
+
+Plaintext .conf.dpapi files from older portable builds are automatically
+renamed to .conf. Actual DPAPI-encrypted files are left untouched.
 
 Administrator privileges can still be required for AmneziaWG Windows services.
 
